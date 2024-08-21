@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Race {
@@ -19,11 +20,16 @@ public class Race {
             int speed;
             while (true) {
                 System.out.println("Укажите скорость машины №" + i);
-                speed = scanner.nextInt();
-                if ((speed > 0) && (speed <= 250)) {
-                    break;
-                } else {
-                    System.out.println("Скорость не входит в диапазон от 0 до 250, попробуйте снова");
+                try {
+                    speed = scanner.nextInt();
+                    if ((speed > 0) && (speed <= 250)) {
+                        break;
+                    } else {
+                        System.out.println("Скорость не входит в диапазон от 0 до 250, попробуйте снова");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Укажите скорость в числовом формате");
+                    scanner.nextLine();
                 }
             }
             car.add(new Car(mark, speed));
